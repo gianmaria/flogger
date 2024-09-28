@@ -13,9 +13,10 @@
 #include <string>
 #include <thread>
 #include <utility>
+#include <string_view>
 
 #define FMT_HEADER_ONLY 1
-#include "fmt/format.h"
+#include <fmt/format.h>
 
 class Flogger
 {
@@ -157,8 +158,8 @@ private:
 
 extern Flogger& default_flog;
 
-#define Flog(fmt, ...)  default_flog.log(Flogger::all,  Flogger::get_Current_Time(), Flogger::get_TID(), __FILE__, __LINE__, __func__, fmt, __VA_ARGS__)
-#define Flogb(fmt, ...) default_flog.log(Flogger::none, Flogger::get_Current_Time(), Flogger::get_TID(), __FILE__, __LINE__, __func__, fmt, __VA_ARGS__)
+#define Flog(fmt, ...)  default_flog.log(Flogger::all,  Flogger::get_Current_Time(), Flogger::get_TID(), __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
+#define Flogb(fmt, ...) default_flog.log(Flogger::none, Flogger::get_Current_Time(), Flogger::get_TID(), __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 #define Ftrace          default_flog.log(Flogger::file, Flogger::get_Current_Time(), Flogger::get_TID(), __FILE__, __LINE__, __func__, "{}", "*trace*")
 
 #endif // FLOGGER_H
